@@ -5,6 +5,7 @@ const helplines = [
     subtitle: "National Emergency",
     number: "999",
     category: "All",
+    icon: "./assets/emergency.png",
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ const helplines = [
     subtitle: "Police",
     number: "999",
     category: "Police",
+    icon: "./assets/police.png",
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ const helplines = [
     subtitle: "Fire Service",
     number: "999",
     category: "Fire",
+    icon: "./assets/fire-service.png",
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ const helplines = [
     subtitle: "Women & Child Helpline",
     number: "109",
     category: "Help",
+    icon: "./assets/emergency.png",
   },
   {
     id: 6,
@@ -41,6 +45,7 @@ const helplines = [
     subtitle: "Anti-Corruption",
     number: "106",
     category: "Govt.",
+    icon: "./assets/emergency.png",
   },
   {
     id: 7,
@@ -48,6 +53,7 @@ const helplines = [
     subtitle: "Electricity Outage",
     number: "16216",
     category: "Electricity",
+    icon: "./assets/emergency.png",
   },
   {
     id: 8,
@@ -55,6 +61,7 @@ const helplines = [
     subtitle: "Brac",
     number: "16445",
     category: "NGO",
+    icon: "./assets/emergency.png",
   },
   {
     id: 9,
@@ -62,6 +69,7 @@ const helplines = [
     subtitle: "Bangladesh Railway",
     number: "163",
     category: "Travel",
+    icon: "./assets/emergency.png",
   },
 ];
 const heartContainer = document.getElementById("heart");
@@ -71,6 +79,7 @@ const creditContainer = document.getElementById("credit");
 const serivceContainer = document.getElementById("service-container");
 const serviceCard = `zaiyaf alam
 `;
+const copyContainer = document.getElementById("copy");
 
 function call(title) {
   let creditValue = parseInt(creditContainer.textContent, 10);
@@ -82,7 +91,7 @@ function call(title) {
   creditValue -= 20;
   creditContainer.textContent = creditValue;
 
-  alert(`${title} call`);
+  alert(`${title} 999`);
 }
 let heartCount = 0;
 function handlefavourite(btn) {
@@ -98,6 +107,17 @@ function handlefavourite(btn) {
   }
   heartContainer.textContent = heartCount;
 }
+let copyCount = 0;
+function handleButton(btn) {
+  if (btn.classList.contains("active")) {
+    btn.classList.remove("active");
+    copyCount--;
+  } else {
+    btn.classList.add("active");
+    copyCount++;
+  }
+  copyContainer.textContent = copyCount;
+}
 
 helplines.forEach((item) => {
   const card = `
@@ -112,13 +132,13 @@ helplines.forEach((item) => {
       </div>
       <h3 class="mb-3 font-bold text-2xl">${item.title}</h3>
       <p class="text-gray-500 text-[18px]">${item.subtitle}</p>
-      <h2 class="font-bold text-2xl">${item.number}</h2>
+      <h2 class="font-bold text-2xl ml-2 mt-2">${item.number}</h2>
       <button class="btn w-[61px] h-[37px] bg-gray-200 rounded-3xl text-[16px] ml-2 text-gray-500 border-none mt-1">
         ${item.category}
       </button>
       <div class="flex justify-center gap-2">
         <div class="flex-1">
-          <button onclick="navigator.clipboard.writeText('${item.number}')" class="btn btn-natural btn-outline mt-8 w-full h-[40px] rounded-[8PX]">Copy</button>
+          <button onclick="handleButton(this)" class="btn btn-natural btn-outline mt-8 w-full h-[40px] rounded-[8PX]">Copy</button>
         </div>
         <div class="flex-1">
           <button onclick="call('${item.title}')" class="btn bg-[#00a63e] mt-8 w-full h-[40px] rounded-[8PX]">
