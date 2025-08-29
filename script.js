@@ -1,3 +1,9 @@
+const heartContainer = document.getElementById("heart");
+const copyContainer = document.getElementById("copy");
+const creditContainer = document.getElementById("credit");
+const serivceContainer = document.getElementById("service-container");
+const logContainer = document.getElementById("log-container");
+
 const helplines = [
   {
     id: 1,
@@ -72,16 +78,8 @@ const helplines = [
     icon: "./assets/emergency.png",
   },
 ];
-const heartContainer = document.getElementById("heart");
 
-const creditContainer = document.getElementById("credit");
-
-const serivceContainer = document.getElementById("service-container");
-const serviceCard = `zaiyaf alam
-`;
-const copyContainer = document.getElementById("copy");
-
-function call(title) {
+function handleCall(title, number) {
   let creditValue = parseInt(creditContainer.textContent, 10);
   if (creditValue === 0) {
     alert("balance finished");
@@ -90,9 +88,32 @@ function call(title) {
 
   creditValue -= 20;
   creditContainer.textContent = creditValue;
+  const now = new Date().toLocaleString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+  const logCard = document.createElement("li");
 
-  alert(`${title} 999`);
+  logCard.classList.add("rounded", "bg-gray-100", "p-4");
+
+  logCard.innerHTML = `
+    <div class="flex justify-between items-center">
+        <h1 class="font-semibold text-xl">${title}</h1>
+        <p class="text-[18px] font-[400]">${now}</p>
+    </div>
+    <h4 class="font-bold text-[22px] text-gray-500">${number}</h4>
+`;
+
+  logContainer.appendChild(logCard);
+
+  alert(`${title} - ${number}`);
 }
+
+function handleClear() {
+  logContainer.innerHTML = "";
+}
+
 let heartCount = 0;
 function handlefavourite(btn) {
   const button = btn.querySelector("i");
@@ -107,6 +128,7 @@ function handlefavourite(btn) {
   }
   heartContainer.textContent = heartCount;
 }
+
 let copyCount = 0;
 function handleButton(btn) {
   if (btn.classList.contains("active")) {
@@ -138,12 +160,11 @@ helplines.forEach((item) => {
       </button>
       <div class="flex justify-center gap-2">
         <div class="flex-1">
-          <button onclick="handleButton(this)" class="btn btn-natural btn-outline mt-8 w-full h-[40px] rounded-[8PX]">Copy</button>
+          <button onclick="handleButton(this)" class="btn border btn-natural btn-outline mt-8 w-full h-[40px] rounded-[8px]">Copy</button>
         </div>
         <div class="flex-1">
-          <button onclick="call('${item.title}')" class="btn bg-[#00a63e] mt-8 w-full h-[40px] rounded-[8PX]">
+          <button onclick="handleCall('${item.title}', '${item.number}')" class="btn bg-[#00a63e] mt-8 w-full h-[40px] rounded-[8PX]">
             <i class="fa-solid fa-phone"> </i> Call 
-        
           </button>
         </div>
       </div>
